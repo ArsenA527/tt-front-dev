@@ -1,27 +1,50 @@
 <template>
-  <div id="app">
-    Hello World
+  <div class="container">
+    <header class="header">
+      <div class="header__wrapper">
+        <h2 class="header__heading">Жилфонд</h2>
+        <p class="header__user">Пользователь</p>
+      </div>
+    </header>
+
+    <main class="main">
+      <Sidebar />
+      <MainView />
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MainView from './components/MainView.vue';
+import Sidebar from './components/Sidebar.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    Sidebar,
+    MainView
+}
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+.header {
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__heading {
+    font-size: 32px;
+    font-weight: 700;
+    color: #E31F24;
+  }
+
+  &__user {
+    font-size: 16px;
+  }
+
 }
 </style>
