@@ -5,17 +5,8 @@
         <img src="" alt="">
       </div>
       <div class="user__info">
-        <p class="user__name">Bret</p>
-        <p class="user__mail">Sincere@april.biz</p>
-      </div>
-    </li>
-    <li class="user__item">
-      <div class="user__image">
-        <img src="" alt="">
-      </div>
-      <div class="user__info">
-        <p class="user__name">Antonette</p>
-        <p class="user__mail">Shanna@melissa.tv</p>
+        <p class="user__name">{{ user.username }}</p>
+        <p class="user__mail">{{ user.email }}</p>
       </div>
     </li>
   </div>
@@ -26,7 +17,9 @@
 export default {
   data() {
     return {}
-  }
+  },
+
+  props: ['user'],
 }
 </script>
 

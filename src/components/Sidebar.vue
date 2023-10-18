@@ -9,18 +9,45 @@
     <p class="aside__title">
       Результаты
     </p>
-    <UserList />
+    <UserList
+      :users="users"
+    />
   </aside>
 </template>
 
 <script>
-import UserList from './UserList.vue';
+import UserList from '@/components/UserList.vue';
 
 export default {
-    data() {
-        return {};
-    },
-    components: { UserList }
+
+  data() {
+    return {
+      searchUsers: 0,
+
+      usersData: null,
+      usersLoading: false,
+      usersLoadingFailed: false,
+    }
+  },
+  components: { UserList },
+
+  computed: {
+    users() {
+      return [];
+    }
+  },
+
+  methods: {
+    loadUsers() {
+      this.usersLoading = true;
+      this.usersLoadingFailed = false;
+
+      clearTimeout(this.loadUsersTimer);
+      this.loadUsersTimer = setTimeout(() => {
+        console.log('axios');
+      }, 2000)
+    }
+  }
 }
 </script>
 
@@ -34,10 +61,6 @@ export default {
       margin-bottom: 22px;
       font-size: 16px;
       font-weight: 600;
-    }
-
-    &__title:last-child {
-      margin-bottom: 18px;
     }
 
     &__label {

@@ -15,15 +15,19 @@
 </template>
 
 <script>
-import MainView from './components/MainView.vue';
-import Sidebar from './components/Sidebar.vue';
+import MainView from '@/components/MainView.vue';
+import Sidebar from '@/components/Sidebar.vue';
 
 export default {
   name: 'App',
   components: {
     Sidebar,
     MainView
-}
+  },
+
+  data() {
+    return {}
+  }
 }
 </script>
 
