@@ -9,31 +9,35 @@
     <p class="aside__title">
       Результаты
     </p>
-    <ul>
-
-    </ul>
+    <UserList />
   </aside>
 </template>
 
 <script>
-
+import UserList from './UserList.vue';
 
 export default {
-  data() {
-    return {}
-  }
+    data() {
+        return {};
+    },
+    components: { UserList }
 }
 </script>
 
 
 <style lang="scss">
   .aside {
+    padding: 27px 31px 27px 20px;
     width: calc(100% - 975px);
 
     &__title {
       margin-bottom: 22px;
       font-size: 16px;
       font-weight: 600;
+    }
+
+    &__title:last-child {
+      margin-bottom: 18px;
     }
 
     &__label {

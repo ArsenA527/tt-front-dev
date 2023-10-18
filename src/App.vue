@@ -30,6 +30,8 @@ export default {
 <style lang="scss">
 
 .header {
+  margin-bottom: 40px;
+
   &__wrapper {
     display: flex;
     justify-content: space-between;

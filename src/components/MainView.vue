@@ -1,22 +1,21 @@
 <template>
   <div class="content">
-    <UserItem />
   </div>
 </template>
 
 <script>
-import UserItem from './UserItem.vue';
 
 export default {
     data() {
       return {};
     },
-    components: { UserItem }
 }
 </script>
 
 <style lang="scss">
   .content {
     width: 77%;
+    height: 100%;
+    border-left: 1px solid #E0E0E0;
   }
 </style>
