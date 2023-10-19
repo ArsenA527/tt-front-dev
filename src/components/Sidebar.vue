@@ -21,7 +21,10 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { API_BASE_URL } from '@/config';
 import UserList from '@/components/UserList.vue';
+import Loader from './Loader.vue';
 
 export default {
 
@@ -49,8 +52,13 @@ export default {
       clearTimeout(this.loadUsersTimer);
       this.loadUsersTimer = setTimeout(() => {
         this.searchUsers = event.target.value;
-        console.log('axios');
-        console.log(this.searchUsers);
+        axios.get(API_BASE_URL + '/users')
+          .then((response) => {
+            console.log(this.searchUsers);
+            console.log(response.data);
+          })
+          .catch(() => this.usersLoadingFailed = true)
+          .then(() => this.usersLoading = false);
       }, 2000)
     },
 
