@@ -4,7 +4,12 @@
       Поиск сотрудников
     </p>
     <label class="aside__label">
-      <input type="text" class="input-reset aside__input">
+      <input
+        type="text"
+        class="input-reset aside__input"
+        v-bind:value="searchUsers"
+        @input="loadUsers"
+      >
     </label>
     <p class="aside__title">
       Результаты
@@ -22,7 +27,7 @@ export default {
 
   data() {
     return {
-      searchUsers: 0,
+      searchUsers: '',
 
       usersData: null,
       usersLoading: false,
@@ -38,15 +43,17 @@ export default {
   },
 
   methods: {
-    loadUsers() {
+    loadUsers(event) {
       this.usersLoading = true;
       this.usersLoadingFailed = false;
-
       clearTimeout(this.loadUsersTimer);
       this.loadUsersTimer = setTimeout(() => {
+        this.searchUsers = event.target.value;
         console.log('axios');
+        console.log(this.searchUsers);
       }, 2000)
-    }
+    },
+
   }
 }
 </script>
@@ -56,6 +63,7 @@ export default {
   .aside {
     padding: 27px 31px 27px 20px;
     width: calc(100% - 975px);
+    background: #FDFDFD;
 
     &__title {
       margin-bottom: 22px;
