@@ -41,7 +41,7 @@ export default {
 
   computed: {
     users() {
-      return [];
+      return this.usersData ? this.usersData : [];
     }
   },
 
@@ -52,10 +52,13 @@ export default {
       clearTimeout(this.loadUsersTimer);
       this.loadUsersTimer = setTimeout(() => {
         this.searchUsers = event.target.value;
+        // searchUsers
         axios.get(API_BASE_URL + '/users')
           .then((response) => {
-            console.log(this.searchUsers);
-            console.log(response.data);
+            this.usersData = response.data.filter(user => (
+              user.username.toLowerCase().includes(this.searchUsers.toLowerCase())
+            ))
+            // this.usersData = response.data;
           })
           .catch(() => this.usersLoadingFailed = true)
           .then(() => this.usersLoading = false);
