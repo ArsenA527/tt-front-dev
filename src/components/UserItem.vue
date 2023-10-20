@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <li class="user__item">
+  <li class="user__item">
+    <button class="btn-reset user__btn">
       <div class="user__image">
         <img src="" alt="">
       </div>
@@ -8,8 +8,8 @@
         <p class="user__name">{{ user.username }}</p>
         <p class="user__mail">{{ user.email }}</p>
       </div>
-    </li>
-  </div>
+    </button>
+  </li>
 </template>
 
 
@@ -40,6 +40,11 @@ export default {
       background: #E0E0E0;
     }
 
+    &__btn {
+      display: flex;
+      width: 100%;
+    }
+
     &__image {
       width: 70px;
       height: 70px;
@@ -49,6 +54,7 @@ export default {
     &__info {
       width: calc(100% - 70px);
       padding: 15px;
+      text-align-last: left;
       font-size: 14px;
       background: #FFF;
     }
