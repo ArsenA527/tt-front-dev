@@ -1,14 +1,23 @@
 <template>
   <li class="user__item">
-    <button class="btn-reset user__btn">
+    <router-link
+      class="btn-reset user__btn"
+      :to="{name: 'user', params: {id: user.id}}"
+    >
       <div class="user__image">
-        <img src="" alt="">
+        <img
+          src="@/img/image-big.png"
+          alt=""
+          width="100%"
+          height="100%"
+          objectFit="cover"
+        >
       </div>
       <div class="user__info">
         <p class="user__name">{{ user.username }}</p>
         <p class="user__mail">{{ user.email }}</p>
       </div>
-    </button>
+    </router-link>
   </li>
 </template>
 

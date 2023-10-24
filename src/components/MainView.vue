@@ -1,12 +1,13 @@
 <template>
-  <div class="content">
+  <div class="content content--center" v-if="!userData">Выберите сотрудника, чтобы посмотреть его профиль</div>
+  <div class="content" v-else>
     <div class="content__image">
       <img src="@/img/image-big.png" alt="">
     </div>
     <div class="content__info">
-      <h3 class="content__info-name">Ervin Howell</h3>
-      <p class="content__info-email">email: <span>Shanna@melissa.tv</span></p>
-      <p class="content__info-phone">phone: <span>010-692-6593 x09125</span></p>
+      <h3 class="content__info-name">{{ userData.name }}</h3>
+      <p class="content__info-email">email: <span>{{ userData.email }}</span></p>
+      <p class="content__info-phone">phone: <span>{{ userData.phone }}</span></p>
       <h3 class="content__info-about">О себе:</h3>
       <p class="content__info-about-text">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -16,10 +17,46 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { API_BASE_URL } from '@/config';
 
 export default {
   data() {
-    return {};
+    return {
+      userData: null,
+      userLoading: false,
+      userLoadingFailed: false,
+    };
+  },
+
+  computed: {
+    user() {
+      return this.userData;
+    },
+  },
+
+  methods: {
+    loadUser() {
+      this.userLoading = true;
+      this.userLoadingFailed = false;
+      clearTimeout(this.loadUserTimer);
+      this.loadUserTimer = setTimeout(() => {
+        return axios.get(API_BASE_URL + '/users?id=' + this.$route.params.id)
+          .then((response) => this.userData = response.data[0])
+          .catch(() => this.userLoadingFailed = true)
+          .then(() => this.userLoading = false);
+      }, 500);
+    },
+  },
+
+  created() {
+    this.loadUser();
+  },
+
+  watch: {
+    '$route.params.id'() {
+      this.loadUser();
+    },
   },
 }
 </script>
@@ -29,9 +66,14 @@ export default {
     display: flex;
     justify-content: space-between;
     width: 77%;
-    height: 100%;
+    height: 90%;
     padding: 30px;
     border-left: 1px solid #E0E0E0;
+
+    &--center {
+      justify-content: center;
+      align-items: center;
+    }
 
     &__image {
       margin-right: 60px;
