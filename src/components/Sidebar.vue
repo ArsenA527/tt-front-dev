@@ -14,9 +14,14 @@
     <p class="aside__title">
       Результаты
     </p>
-    <UserList
-      :users="users"
-    />
+    <div v-if="usersLoading">Идет поиск ...</div>
+    <div v-if="usersLoadingFailed">Нет данных</div>
+    <div v-if="users">
+      <UserList
+        :users="users"
+      />
+    </div>
+
   </aside>
 </template>
 
@@ -37,7 +42,7 @@ export default {
       usersLoadingFailed: false,
     }
   },
-  components: { UserList },
+  components: { UserList, Loader },
 
   computed: {
     users() {

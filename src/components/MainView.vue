@@ -1,5 +1,6 @@
 <template>
-  <div class="content content--center" v-if="!userData">Выберите сотрудника, чтобы посмотреть его профиль</div>
+  <div class="content content--center" v-if="userLoading"><Loader /></div>
+  <div class="content content--center" v-else-if="!userData">Выберите сотрудника, чтобы посмотреть его профиль</div>
   <div class="content" v-else>
     <div class="content__image">
       <img src="@/img/image-big.png" alt="">
@@ -19,8 +20,11 @@
 <script>
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
+import Loader  from '@/components/Loader.vue';
 
 export default {
+  components: { Loader },
+
   data() {
     return {
       userData: null,
@@ -45,7 +49,7 @@ export default {
           .then((response) => this.userData = response.data[0])
           .catch(() => this.userLoadingFailed = true)
           .then(() => this.userLoading = false);
-      }, 500);
+      }, 2000);
     },
   },
 
