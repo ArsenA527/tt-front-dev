@@ -16,7 +16,7 @@
     </p>
     <div v-if="usersLoading">Идет поиск ...</div>
     <div v-if="usersLoadingFailed">Нет данных</div>
-    <div v-if="users">
+    <div v-if="users && searchUsers">
       <UserList
         :users="users"
       />
@@ -54,18 +54,17 @@ export default {
     loadUsers(event) {
       this.usersLoading = true;
       this.usersLoadingFailed = false;
+      this.searchUsers = event.target.value;
+
       clearTimeout(this.loadUsersTimer);
       this.loadUsersTimer = setTimeout(() => {
-        this.searchUsers = event.target.value;
         axios.get(API_BASE_URL + '/users')
           .then((response) => {
-            if (this.searchUsers) {
-              this.usersData = response.data.filter(user => {
-                return user.username.toLowerCase().indexOf(this.searchUsers.toLowerCase()) !== -1
-                  || user.name.toLowerCase().indexOf(this.searchUsers.toLowerCase()) !== -1
-                  || user.id == this.searchUsers;
-              })
-            }
+            this.usersData = response.data.filter(user => {
+              return user.username.toLowerCase().indexOf(this.searchUsers.toLowerCase()) !== -1
+                || user.name.toLowerCase().indexOf(this.searchUsers.toLowerCase()) !== -1
+                || user.id == this.searchUsers;
+            })
           })
           .catch(() => this.usersLoadingFailed = true)
           .then(() => this.usersLoading = false);
